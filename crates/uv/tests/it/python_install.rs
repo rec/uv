@@ -1105,20 +1105,13 @@ fn launcher_path(path: &Path) -> PathBuf {
 }
 
 fn read_link_path(path: &Path) -> String {
-    dbg!("original path: {:?}", path);
-    #[cfg(windows)]
-    let path = launcher_path(path);
-    // FIXME
-    #[cfg(windows)]
-    dbg!("launcher path: {:?}", &path);
-    #[cfg(windows)]
-    let path = path.as_path();
-    // FIXME
-    #[cfg(windows)]
-    dbg!("as_path: {:?}", &path);
-    dbg!("canonicalized: {:?}", fs_err::canonicalize(path));
+    #[cfg(unix)]
+    let path = fs_err::canonicalize(path);
 
-    fs_err::canonicalize(path)
+    #[cfg(windows)]
+    let path = dunce::canonicalize(launcher_path(path));
+
+    path
         .unwrap_or_else(|_| panic!("{} should be readable", path.display()))
         .simplified_display()
         .to_string()

@@ -859,16 +859,11 @@ fn find_matching_bin_link<'a>(
         if !matches!(launcher.kind, LauncherKind::Python) {
             return None;
         }
-        dbg!("launcher path: {:?}", &launcher.python_path);
-        dbg!("canon launcher path: {:?}", &dunce::canonicalize(&launcher.python_path));
         dunce::canonicalize(launcher.python_path).ok()?
         // fs_err::canonicalize(launcher.python_path).ok()?
     } else {
         unreachable!("Only Windows and Unix are supported")
     };
-    dbg!("installations");
 
-    installations.find(|installation| {dbg!("-- {:?}", &installation.executable(false)); installation.executable(false) == target})
-    // FIXME
-    // installations.find(|installation| installation.executable(false) == target)
+    installations.find(|installation| installation.executable(false) == target)
 }
