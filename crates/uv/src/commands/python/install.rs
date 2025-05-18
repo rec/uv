@@ -866,7 +866,7 @@ fn find_matching_bin_link<'a>(
         unreachable!("Only Windows and Unix are supported")
     };
     dbg!("installations");
-    for installation in &installations {
+    for installation in &installations.iter() {
         dbg!("-- {:?}", &installation);
     }
 
