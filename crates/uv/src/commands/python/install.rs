@@ -860,8 +860,9 @@ fn find_matching_bin_link<'a>(
             return None;
         }
         dbg!("launcher path: {:?}", &launcher.python_path);
-        dbg!("canon launcher path: {:?}", &fs_err::canonicalize(&launcher.python_path));
-        fs_err::canonicalize(launcher.python_path).ok()?
+        dbg!("canon launcher path: {:?}", &dunce::canonicalize(&launcher.python_path));
+        dunce::canonicalize(launcher.python_path).ok()?
+        // fs_err::canonicalize(launcher.python_path).ok()?
     } else {
         unreachable!("Only Windows and Unix are supported")
     };
