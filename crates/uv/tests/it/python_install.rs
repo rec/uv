@@ -1111,8 +1111,7 @@ fn read_link_path(path: &Path) -> String {
     #[cfg(windows)]
     let path = dunce::canonicalize(launcher_path(path));
 
-    path
-        .unwrap_or_else(|_| panic!("{} should be readable", path.display()))
+    path.unwrap_or_else(|_| panic!("{} should be readable", path.display()))
         .simplified_display()
         .to_string()
 }
