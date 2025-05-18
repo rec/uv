@@ -867,7 +867,7 @@ fn find_matching_bin_link<'a>(
     };
     dbg!("installations");
 
-    installations.find(|installation| {dbg!("-- {:?}", &installation); installation.executable(false) == target})
+    installations.find(|installation| {dbg!("-- {:?}", &installation.executable(false)); installation.executable(false) == target})
     // FIXME
     // installations.find(|installation| installation.executable(false) == target)
 }
