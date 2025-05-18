@@ -844,6 +844,7 @@ fn warn_if_not_on_path(bin: &Path) {
 /// Find the [`ManagedPythonInstallation`] corresponding to an executable link installed at the
 /// given path, if any.
 ///
+/// FIXME doc
 /// Like [`ManagedPythonInstallation::is_bin_link`], but this method will only resolve the
 /// given path twice. A bin link points to a path containing a symlink directory (or junction on
 /// Windows) which points to the executable.
@@ -858,7 +859,7 @@ fn find_matching_bin_link<'a>(
         if !matches!(launcher.kind, LauncherKind::Python) {
             return None;
         }
-        launcher.python_path
+        fs_err::canonicalize(launcher.python_path).ok()?
     } else {
         unreachable!("Only Windows and Unix are supported")
     };
