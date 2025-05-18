@@ -865,7 +865,10 @@ fn find_matching_bin_link<'a>(
     } else {
         unreachable!("Only Windows and Unix are supported")
     };
-    dbg!("installations: {:?}", &installations);
+    dbg!("installations");
+    for installation in &installations {
+        dbg!("-- {:?}", &installation);
+    }
 
     installations.find(|installation| installation.executable(false) == target)
 }
